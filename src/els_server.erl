@@ -59,12 +59,8 @@
 %%==============================================================================
 -spec start_link(module()) -> {ok, pid()}.
 start_link(Transport) ->
-  {ok, Pid} = gen_server:start_link({local, ?SERVER}, ?MODULE, Transport, []),
-  Cb = fun(Requests) ->
-           gen_server:cast(Pid, {process_requests, Requests})
-       end,
-  {ok, _} = Transport:start_listener(Cb),
-  {ok, Pid}.
+  gen_server:start_link({local, ?SERVER}, ?MODULE, Transport, []). 
+
 
 -spec process_requests([any()]) -> ok.
 process_requests(Requests) ->

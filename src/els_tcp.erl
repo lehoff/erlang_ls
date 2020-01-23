@@ -7,7 +7,7 @@
 -export([start_link/4]).
 
 %% els_transport callbacks
--export([ start_listener/1
+-export([ start_listener/0
         , init/1
         , send/2
         ]).
@@ -41,8 +41,8 @@ start_link(Ref, Socket, Transport, Opts) ->
 %% els_transport callbacks
 %%==============================================================================
 
--spec start_listener(function()) -> {ok, pid()}.
-start_listener(_Cb) ->
+-spec start_listener() -> {ok, pid()}.
+start_listener() ->
   lager:info("Starting ranch listener.."),
   {ok, Port} = application:get_env(erlang_ls, port),
   {ok, _} = ranch:start_listener( erlang_ls
